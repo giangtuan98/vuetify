@@ -1,0 +1,128 @@
+{
+  "employees": [
+    {
+      "id": 12875,
+      "name": "Dwight Schrute",
+      "title": "Assistant to the Regional Manager",
+      "salary": 65000
+    },
+    {
+      "id": 14094,
+      "name": "Kelly Kapoor",
+      "title": "Customer Service Representative",
+      "salary": 40000
+    },
+    {
+      "id": 12894,
+      "name": "Darryl Philbin",
+      "title": "Warehouse Foreman",
+      "salary": 68000
+    },
+    {
+      "id": 13893,
+      "name": "Angela Martin",
+      "title": "Accountant",
+      "salary": 54000
+    },
+    {
+      "id": 12943,
+      "name": "Phyllis Vance",
+      "title": "Saleswoman",
+      "salary": 65000
+    },
+    {
+      "id": 19523,
+      "name": "Karen Filippeli",
+      "title": "Saleswoman",
+      "salary": 65000
+    },
+    {
+      "id": 18349,
+      "name": "Toby Flenderson",
+      "title": "Human Resources Representative",
+      "salary": 60000
+    },
+    {
+      "id": 11853,
+      "name": "Michael Scott",
+      "title": "Regional Manager",
+      "salary": 70000
+    },
+    {
+      "id": 14821,
+      "name": "Pam Beasley",
+      "title": "Secretary",
+      "salary": 45000
+    },
+    {
+      "id": 15834,
+      "name": "Jim Halpert",
+      "title": "Salesman",
+      "salary": 65000
+    }
+  ],
+  "sales": [
+    {
+      "title": "Sales Today",
+      "sales": [423, 446, 675, 510, 590, 610, 760, 639],
+      "color": "cyan",
+      "labels": ["6AM", "8AM", "9AM", "10AM", "12PM", "2PM", "4PM", "6PM"]
+    },
+    {
+      "title": "Sales This Month",
+      "sales": [325, 123, 273, 573],
+      "color": "teal",
+      "labels": ["Week 1", "Week 2", "Week 3", "Week 4"]
+    },
+    {
+      "title": "Sales This Year",
+      "sales": [746, 415, 943, 1372, 983, 651, 837, 639],
+      "color": "green",
+      "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"]
+    }
+  ],
+  "statistics": [
+    {
+      "title": "Employees",
+      "value": "65"
+    },
+    {
+      "title": "Ream Sold",
+      "value": "983,000"
+    },
+    {
+      "title": "Rating",
+      "value": "4.5"
+    },
+    {
+      "title": "Revenue",
+      "value": "$2.3M"
+    }
+  ],
+  "timelines": [
+    {
+      "color": "red lighten-2",
+      "icon": "mdi-star",
+      "title": "Promoted to Assistant Regional Manager",
+      "text": "Congratulations to Dwayne on your promotion! Sensei is proud!"
+    },
+    {
+      "color": "purple darken-1",
+      "icon": "mdi-ring",
+      "title": "PB & J Finally Together!",
+      "text": "Max Scarn here with a personal congratulations to the happy couple!"
+    },
+    {
+      "color": "green lighten-1",
+      "icon": "mdi-balloon",
+      "title": "Welcome Back to the Temp!",
+      "text": "Sorry about what happened at corporate, but I am glad you are back! - Max"
+    },
+    {
+      "color": "indigo",
+      "icon": "mdi-gift",
+      "title": "Reminder: Secret Santa Rules",
+      "text": "The maximum spending amount is $20. No iPods allowed."
+    }
+  ]
+}

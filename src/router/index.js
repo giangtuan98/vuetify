@@ -43,6 +43,13 @@ const routes = [
     path: "/kanban",
     name: "kanban",
     component: () => import("../views/Kanban.vue"),
+    children: [
+      {
+        path: ":id",
+        name: "edit-task",
+        component: () => import("../views/EditTask.vue"),
+      },
+    ],
   },
 ];
 

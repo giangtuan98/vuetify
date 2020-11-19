@@ -9,6 +9,7 @@
       ></BoardColumn>
       <CreateColumn @onCreate="createNewColumn"></CreateColumn>
     </v-row>
+    <router-view></router-view>
   </v-container>
 </template>
 
@@ -27,7 +28,6 @@ export default {
   },
   methods: {
     createNewColumn(name) {
-      console.log("a");
       this.$store.dispatch("createColumn", {
         name,
       });

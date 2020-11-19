@@ -7,13 +7,22 @@ Vue.use(Vuex);
 
 const board = JSON.parse(localStorage.getItem("board")) || defaultBoard;
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
+  plugins: [
+    (store) => {
+      store.subscribeAction({
+        after: (action, state) => {
+          localStorage.setItem("board", JSON.stringify(state.board));
+          console.log(state.board.columns);
+        },
+      });
+    },
+  ],
   state: {
     board,
   },
   mutations: {
     CREATE_TASK(state, { tasks, name }) {
-      console.log(tasks, name);
       tasks.push({
         id: uuid(),
         name,
@@ -44,6 +53,14 @@ export default new Vuex.Store({
 
       columns[toColumnIndex].tasks.splice(toTaskIndex, 0, taskToMove);
     },
+    // UPDATE_TASK(state, { task, newTask }) {
+    //   // for (let column of state.board.columns) {
+    //   //   let taskIndex = column.tasks.findIndex((item) => item.id == task.id);
+    //   //   if (taskIndex) {
+    //   //     console.log();
+    //   //   }
+    //   // }
+    // },
   },
   actions: {
     createTask({ commit }, { tasks, name }) {
@@ -66,6 +83,26 @@ export default new Vuex.Store({
         toTaskIndex,
       });
     },
+    // updateTask({ getters }, { task }) {
+    //   commit("UPDATE_TASK", {
+    //     task,
+    //   });
+    // },
+  },
+  getters: {
+    getTaskById: (state) => (taskId) => {
+      for (let column of state.board.columns) {
+        let tasks = column.tasks.filter((task) => task.id == taskId);
+
+        if (tasks[0]) {
+          return tasks[0];
+        }
+      }
+
+      return {};
+    },
   },
   modules: {},
 });
+
+export default store;

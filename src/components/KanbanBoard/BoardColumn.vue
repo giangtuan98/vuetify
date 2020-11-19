@@ -1,7 +1,7 @@
 <template>
   <v-col
     class="board-column"
-    @drop="changeColumnIndex($event, columnIndex)"
+    @drop="changeColumnIndex($event, columnIndex, column.tasks.length)"
     @dragover.prevent
     @dragenter.prevent
     draggable
@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     createNewTask(name) {
-      console.log(name);
       this.$store.dispatch("createTask", {
         tasks: this.column.tasks,
         name,
@@ -56,17 +55,35 @@ export default {
       event.dataTransfer.setData("type", "column");
       event.dataTransfer.setData("from-column-index", this.columnIndex);
     },
-    changeColumnIndex(event, toColumnIndex) {
-      const fromColumnIndex = event.dataTransfer.getData("from-column-index");
-
+    changeColumnIndex(event, toColumnIndex, toTaskIndex) {
       const type = event.dataTransfer.getData("type");
 
       if (type == "column") {
-        this.$store.dispatch("moveColumn", {
-          fromColumnIndex,
-          toColumnIndex,
-        });
+        this.moveColumn(event, toColumnIndex);
+      } else {
+        this.moveTask(event, toColumnIndex, toTaskIndex);
       }
+    },
+
+    moveColumn(event, toColumnIndex) {
+      const fromColumnIndex = event.dataTransfer.getData("from-column-index");
+
+      this.$store.dispatch("moveColumn", {
+        fromColumnIndex,
+        toColumnIndex,
+      });
+    },
+
+    moveTask(event, toColumnIndex, toTaskIndex) {
+      const fromColumnIndex = event.dataTransfer.getData("from-column-index");
+      const fromTaskIndex = event.dataTransfer.getData("from-task-index");
+
+      this.$store.dispatch("moveTask", {
+        fromColumnIndex,
+        fromTaskIndex,
+        toColumnIndex,
+        toTaskIndex,
+      });
     },
   },
 };

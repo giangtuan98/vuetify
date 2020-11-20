@@ -6,7 +6,8 @@
           <input
             class="w-100 edit-title hover-bg-dark"
             type="text"
-            v-model="task.name"
+            v-model="newTask.name"
+            @change="updateTask('name')"
             rounded
           />
         </v-card-title>
@@ -28,7 +29,9 @@
               >
               </editor>
               <div class="mt-3">
-                <v-btn class="primary mr-4" @click="updateTask">Save</v-btn>
+                <v-btn class="primary mr-4" @click="updateTask('description')"
+                  >Save</v-btn
+                >
                 <v-btn text @click="cancelUpdate">Cancel</v-btn>
               </div>
             </div>
@@ -81,13 +84,13 @@ export default {
       this.newTask = { ...this.task };
       this.showEditor = true;
     },
-    updateTask() {
-      this.task.description = this.newTask.description;
+    updateTask(key) {
+      this.$store.dispatch("updateTask", {
+        task: this.task,
+        key,
+        value: this.newTask[key],
+      });
       this.showEditor = false;
-      // this.$store.dispatch("updateTask", {
-      //   task: this.task,
-      //   newTask: this.newTask,
-      // });
     },
     cancelUpdate() {
       this.newTask = {};
@@ -96,7 +99,9 @@ export default {
   },
   mounted() {
     this.task = this.$store.getters.getTaskById(this.$route.params.id);
-    console.log(this.$route.params.id);
+    this.newTask = {
+      ...this.task,
+    };
   },
 };
 </script>

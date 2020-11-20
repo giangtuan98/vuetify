@@ -1,16 +1,19 @@
 <template>
-  <v-card
-    class="task mb-1 text-left"
-    draggable
-    @dragstart="pickupTask($event)"
-    @drop.stop="moveTaskOrColumn($event, columnIndex, taskIndex)"
-    @click="goToTask(task.id)"
-  >
-    <span class="task-title">
-      {{ task.name }}
-    </span>
-    <span class="task-description" v-html="task.description"> </span>
-  </v-card>
+  <div :class="{ 'transparent-div': hide }">
+    <div
+      draggable
+      @dragstart="pickupTask($event)"
+      @drop.stop="moveTaskOrColumn($event, columnIndex, taskIndex)"
+      @click="goToTask(task.id)"
+    >
+      <v-card class="task mb-1 text-left">
+        <span class="task-title">
+          {{ task.name }}
+        </span>
+        <span class="task-description" v-html="task.description"> </span>
+      </v-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -29,6 +32,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      hide: false,
+    };
+  },
   methods: {
     goToTask(id) {
       this.$router.push({
@@ -45,6 +53,9 @@ export default {
       event.dataTransfer.setData("type", "task");
       event.dataTransfer.setData("from-column-index", this.columnIndex);
       event.dataTransfer.setData("from-task-index", this.taskIndex);
+
+      this.$store.state.selectedColumnIndex = this.columnIndex;
+      this.hide = true;
     },
 
     moveTaskOrColumn(event, toColumnIndex, toTaskIndex) {
@@ -55,6 +66,7 @@ export default {
       } else {
         this.moveTask(event, this.columnIndex, toTaskIndex);
       }
+      this.$store.state.selectedColumnIndex = -1;
     },
 
     moveColumn(event, toColumnIndex) {
@@ -86,6 +98,7 @@ export default {
   padding: 5px;
   font-size: 0.75rem;
   cursor: move;
+  word-break: break-all;
 
   &:hover {
     background-color: #ebecf0;
@@ -104,5 +117,8 @@ export default {
 
   &-description {
   }
+}
+.transparent-div {
+  // opacity: 0;
 }
 </style>

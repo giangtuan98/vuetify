@@ -6,6 +6,7 @@
         :key="columnIndex"
         :columnIndex="columnIndex"
         :column="column"
+        :selectedColumnIndex="selectedColumnIndex"
       ></BoardColumn>
       <CreateColumn @onCreate="createNewColumn"></CreateColumn>
     </v-row>
@@ -31,6 +32,11 @@ export default {
       this.$store.dispatch("createColumn", {
         name,
       });
+    },
+  },
+  computed: {
+    selectedColumnIndex() {
+      return this.$store.state.selectedColumnIndex;
     },
   },
   mounted() {

@@ -13,13 +13,13 @@ const store = new Vuex.Store({
       store.subscribeAction({
         after: (action, state) => {
           localStorage.setItem("board", JSON.stringify(state.board));
-          console.log(state.board.columns);
         },
       });
     },
   ],
   state: {
     board,
+    selectedColumnIndex: -1,
   },
   mutations: {
     CREATE_TASK(state, { tasks, name }) {
@@ -53,14 +53,9 @@ const store = new Vuex.Store({
 
       columns[toColumnIndex].tasks.splice(toTaskIndex, 0, taskToMove);
     },
-    // UPDATE_TASK(state, { task, newTask }) {
-    //   // for (let column of state.board.columns) {
-    //   //   let taskIndex = column.tasks.findIndex((item) => item.id == task.id);
-    //   //   if (taskIndex) {
-    //   //     console.log();
-    //   //   }
-    //   // }
-    // },
+    UPDATE_TASK(state, { task, key, value }) {
+      task[key] = value;
+    },
   },
   actions: {
     createTask({ commit }, { tasks, name }) {
@@ -83,11 +78,13 @@ const store = new Vuex.Store({
         toTaskIndex,
       });
     },
-    // updateTask({ getters }, { task }) {
-    //   commit("UPDATE_TASK", {
-    //     task,
-    //   });
-    // },
+    updateTask({ commit }, { task, key, value }) {
+      commit("UPDATE_TASK", {
+        task,
+        key,
+        value,
+      });
+    },
   },
   getters: {
     getTaskById: (state) => (taskId) => {

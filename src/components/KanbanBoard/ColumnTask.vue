@@ -1,10 +1,11 @@
 <template>
-  <div :class="{ 'transparent-div': hide }">
+  <div>
     <div
       draggable
       @dragstart="pickupTask($event)"
       @drop.stop="moveTaskOrColumn($event, columnIndex, taskIndex)"
       @click="goToTask(task.id)"
+      @dragend="dragEnd($event)"
     >
       <v-card class="task mb-1 text-left">
         <span class="task-title">
@@ -13,10 +14,13 @@
         <span class="task-description" v-html="task.description"> </span>
       </v-card>
     </div>
+
+    <!-- <div class="task-disable"></div> -->
   </div>
 </template>
 
 <script>
+// import { Drag, DropList } from "vue-easy-dnd";
 export default {
   props: {
     task: {
@@ -56,8 +60,18 @@ export default {
 
       this.$store.state.selectedColumnIndex = this.columnIndex;
       this.hide = true;
-    },
 
+      let element = event.target;
+      window.requestAnimationFrame(function() {
+        element.classList.add("hide");
+      });
+    },
+    dragEnd(event) {
+      let element = event.target;
+
+      element.classList.remove("hide");
+      this.$store.state.selectedColumnIndex = -1;
+    },
     moveTaskOrColumn(event, toColumnIndex, toTaskIndex) {
       const type = event.dataTransfer.getData("type");
 
@@ -67,6 +81,7 @@ export default {
         this.moveTask(event, this.columnIndex, toTaskIndex);
       }
       this.$store.state.selectedColumnIndex = -1;
+      this.hide = false;
     },
 
     moveColumn(event, toColumnIndex) {
@@ -117,8 +132,13 @@ export default {
 
   &-description {
   }
+
+  &-disable {
+    height: 100;
+    background-color: red;
+  }
 }
-.transparent-div {
-  // opacity: 0;
+.hide {
+  transform: translateX(-9999px);
 }
 </style>

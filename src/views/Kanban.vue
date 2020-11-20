@@ -17,10 +17,12 @@
 <script>
 import BoardColumn from "@/components/KanbanBoard/BoardColumn.vue";
 import CreateColumn from "@/components/KanbanBoard/CreateColumn.vue";
+
 export default {
   data() {
     return {
       board: [],
+      cards: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }],
     };
   },
   components: {
@@ -45,4 +47,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.card {
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  /* display: inline-block; */
+}
+</style>

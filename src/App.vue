@@ -70,4 +70,14 @@ export default {
     }
   }
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.fade-enter,
+.fade-leave {
+  opacity: 0;
+}
 </style>

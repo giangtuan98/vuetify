@@ -11,7 +11,9 @@
       {{ column.name }}
     </p>
     <div class="list-task-wrapper">
+      <!-- <transition-group name="task"> -->
       <ColumnTask
+        class="task-fly"
         v-for="(task, taskIndex) in column.tasks"
         :key="taskIndex"
         :task="task"
@@ -20,6 +22,7 @@
         @updateSelectedColumnIndex="updateSelectedColumnIndex"
         draggable
       ></ColumnTask>
+      <!-- </transition-group> -->
 
       <CreateTask @onCreate="createNewTask"></CreateTask>
       <transition name="fade">
@@ -42,6 +45,7 @@
 <script>
 import ColumnTask from "./ColumnTask";
 import CreateTask from "./CreateTask";
+// import gsap from "gsap";
 
 export default {
   components: {
@@ -122,6 +126,16 @@ export default {
       );
     },
   },
+  mounted() {
+    // gsap.from(".task-fly", {
+    //   duration: 2,
+    //   opacity: 0,
+    //   scale: 0,
+    //   y: 800,
+    //   ease: "power1",
+    //   stagger: 0.1,
+    // });
+  },
 };
 </script>
 
@@ -179,4 +193,8 @@ export default {
     opacity: 0;
   }
 }
+
+// .task-move {
+//   transition: transform 1s ease;
+// }
 </style>
